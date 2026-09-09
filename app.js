@@ -340,8 +340,9 @@ admin.get('/asistencias', h(async (req, res) => {
 admin.post('/asistencias', h(async (req, res) => {
   const { alumno_id, materia_id, fecha } = req.body || {};
   if (!alumno_id || !materia_id || !/^\d{4}-\d{2}-\d{2}$/.test(String(fecha))) return res.status(400).json({ error: 'Datos incompletos.' });
+  const hora = isValidHora(req.body?.hora) ? req.body.hora : nowInTz().hora;
   await db.run(`INSERT INTO asistencias (alumno_id, materia_id, fecha, hora, origen) VALUES (?, ?, ?, ?, 'manual')
-                ON CONFLICT(alumno_id, materia_id, fecha) DO NOTHING`, [alumno_id, materia_id, fecha, nowInTz().hora]);
+                ON CONFLICT(alumno_id, materia_id, fecha) DO NOTHING`, [alumno_id, materia_id, fecha, hora]);
   res.json({ ok: true });
 }));
 admin.delete('/asistencias', h(async (req, res) => {

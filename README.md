@@ -56,5 +56,5 @@ APP_FAKE_NOW="2026-09-10T23:10:00Z" npm start   # jueves 17:10 hora de México
 - `POST /api/admin/login` `{ password }` · `POST /api/admin/logout`
 - `GET|POST|PUT|DELETE /api/admin/materias[/:id]`, `POST /api/admin/materias/:id/horarios`, `DELETE /api/admin/horarios/:id`
 - `GET|POST|PUT|DELETE /api/admin/alumnos[/:id]`, `POST /api/admin/alumnos/importar`
-- `GET /api/admin/asistencias?materia=&desde=&hasta=`, `POST|DELETE /api/admin/asistencias`, `GET /api/admin/asistencias/csv`
+- `GET /api/admin/asistencias?materia=&desde=&hasta=`, `POST|DELETE /api/admin/asistencias` (`{ alumno_id, materia_id, fecha, hora? }`), `GET /api/admin/asistencias/csv`
 - `GET /api/admin/resumen`, `PUT /api/admin/ajustes`
