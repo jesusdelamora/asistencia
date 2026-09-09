@@ -31,7 +31,7 @@ APP_FAKE_NOW="2026-09-10T23:10:00Z" npm start   # jueves 17:10 hora de México
 
 1. Importa este repositorio en Vercel.
 2. En **Storage → Marketplace** agrega **Turso** y conéctalo al proyecto. Eso crea las
-   variables `TURSO_URL` y `TURSO_AUTH_TOKEN` (usa `TURSO` como prefijo al conectar).
+   variables `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN`.
 3. En **Settings → Environment Variables** agrega:
    - `ADMIN_PASSWORD`: contraseña del panel.
    - `SESSION_SECRET`: cadena aleatoria larga (`openssl rand -hex 32`).
@@ -45,7 +45,7 @@ APP_FAKE_NOW="2026-09-10T23:10:00Z" npm start   # jueves 17:10 hora de México
 | `ADMIN_PASSWORD` | Contraseña del panel `/admin`, mínimo 8 caracteres. **Obligatoria en producción** (en local, por defecto `admin`). |
 | `SESSION_SECRET` | Secreto para firmar la cookie de sesión del admin (`openssl rand -hex 32`). **Obligatorio en producción**. |
 | `APP_TZ` | Zona horaria para validar horarios. Por defecto `America/Mexico_City`. |
-| `TURSO_URL` o `TURSO_DATABASE_URL` | URL `libsql://…` de Turso (cualquier prefijo `<X>_URL` se detecta). Si falta en local se usa SQLite en archivo. |
+| `TURSO_DATABASE_URL` | URL `libsql://…` de Turso (la crea la integración). Si falta en local se usa SQLite en archivo. |
 | `TURSO_AUTH_TOKEN` | Token de Turso. |
 | `APP_FAKE_NOW` | Solo pruebas: fecha ISO para simular la hora actual. |
 
