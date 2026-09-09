@@ -6,11 +6,31 @@ const express = require('express');
 const db = require('./db');
 const { nowInTz, toMinutes, isValidHora, DIAS, TZ } = require('./lib/time');
 
+const EN_PRODUCCION = Boolean(process.env.VERCEL) || process.env.NODE_ENV === 'production';
+if (EN_PRODUCCION && (!process.env.ADMIN_PASSWORD || !process.env.SESSION_SECRET)) {
+  throw new Error('En producción es obligatorio definir ADMIN_PASSWORD y SESSION_SECRET.');
+}
+if (process.env.ADMIN_PASSWORD && process.env.ADMIN_PASSWORD.length < 8) {
+  throw new Error('ADMIN_PASSWORD debe tener al menos 8 caracteres.');
+}
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin';
-const SESSION_SECRET = process.env.SESSION_SECRET ||
-  crypto.createHash('sha256').update('asistencia:' + ADMIN_PASSWORD).digest('hex');
-if (!process.env.ADMIN_PASSWORD) {
-  console.warn('AVISO: ADMIN_PASSWORD no está definida; se usa "admin". Cámbiala antes de publicar.');
+const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+if (!process.env.ADMIN_PASSWORD) console.warn('AVISO (solo desarrollo): ADMIN_PASSWORD no está definida; se usa "admin".');
+const SESION_MAX_MS = 30 * 24 * 60 * 60 * 1000;
+
+// Limitador simple por IP (en memoria, por instancia): protege login y check-in de fuerza bruta.
+const intentos = new Map();
+function limitar(max, ventanaMs) {
+  return (req, res, next) => {
+    const key = req.path + '|' + (req.ip || req.socket.remoteAddress);
+    const ahora = Date.now();
+    const e = intentos.get(key) || { n: 0, desde: ahora };
+    if (ahora - e.desde > ventanaMs) { e.n = 0; e.desde = ahora; }
+    e.n++; intentos.set(key, e);
+    if (intentos.size > 5000) for (const [k, v] of intentos) if (ahora - v.desde > ventanaMs) intentos.delete(k);
+    if (e.n > max) return res.status(429).json({ error: 'Demasiados intentos. Espera un momento e inténtalo de nuevo.' });
+    next();
+  };
 }
 
 const app = express();
@@ -26,7 +46,16 @@ app.use('/api', (req, res, next) => { db.ready().then(() => next(), next); });
 const h = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 // ---------- Autenticación del panel ----------
-const adminToken = () => crypto.createHmac('sha256', SESSION_SECRET).update('admin').digest('hex');
+// Token de sesión: "<emitido_en>.<hmac>", caduca a los 30 días.
+function firmar(iat) { return crypto.createHmac('sha256', SESSION_SECRET).update('admin:' + iat).digest('hex'); }
+function nuevoToken() { const iat = Date.now(); return iat + '.' + firmar(iat); }
+function tokenValido(tok) {
+  const [iatStr, firma] = String(tok || '').split('.');
+  const iat = Number(iatStr);
+  if (!Number.isFinite(iat) || !firma) return false;
+  if (Date.now() - iat > SESION_MAX_MS || iat > Date.now() + 60000) return false;
+  return safeEqual(firma, firmar(iat));
+}
 function parseCookies(req) {
   const out = {};
   for (const part of (req.headers.cookie || '').split(';')) {
@@ -39,16 +68,16 @@ function safeEqual(a, b) {
   const ba = Buffer.from(String(a)), bb = Buffer.from(String(b));
   return ba.length === bb.length && crypto.timingSafeEqual(ba, bb);
 }
-const isAdmin = req => safeEqual(parseCookies(req).admin_token || '', adminToken());
+const isAdmin = req => tokenValido(parseCookies(req).admin_token);
 function requireAdmin(req, res, next) {
   if (isAdmin(req)) return next();
   res.status(401).json({ error: 'No autorizado' });
 }
 
-app.post('/api/admin/login', (req, res) => {
+app.post('/api/admin/login', limitar(10, 15 * 60 * 1000), (req, res) => {
   if (!safeEqual(req.body?.password || '', ADMIN_PASSWORD)) return res.status(401).json({ error: 'Contraseña incorrecta' });
   const secure = req.secure ? '; Secure' : '';
-  res.setHeader('Set-Cookie', `admin_token=${adminToken()}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${60 * 60 * 24 * 30}${secure}`);
+  res.setHeader('Set-Cookie', `admin_token=${nuevoToken()}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${60 * 60 * 24 * 30}${secure}`);
   res.json({ ok: true });
 });
 app.post('/api/admin/logout', (req, res) => {
@@ -95,7 +124,7 @@ app.get('/api/estado', (req, res) => {
   res.json({ fecha: ahora.fecha, hora: ahora.hora, dia: ahora.diaNombre, tz: TZ });
 });
 
-app.post('/api/checkin', h(async (req, res) => {
+app.post('/api/checkin', limitar(30, 10 * 60 * 1000), h(async (req, res) => {
   const matricula = String(req.body?.matricula || '').trim();
   if (!matricula) return res.status(400).json({ error: 'Escribe tu matrícula.' });
 
@@ -110,9 +139,8 @@ app.post('/api/checkin', h(async (req, res) => {
       ? `Tu próxima clase es ${prox.materia} (${prox.grupo}) el ${prox.dia} de ${prox.hora_inicio} a ${prox.hora_fin}.`
       : 'No estás inscrito en ninguna materia con horario.';
     return res.status(403).json({
-      error: `Hola ${alumno.nombre}. Ahora (${ahora.diaNombre} ${ahora.hora}) no tienes clase; el check-in solo se permite dentro del horario.`,
+      error: `Ahora (${ahora.diaNombre} ${ahora.hora}) no tienes clase; el check-in solo se permite dentro del horario.`,
       detalle,
-      alumno: { nombre: alumno.nombre, matricula: alumno.matricula },
     });
   }
 
@@ -326,7 +354,7 @@ admin.get('/asistencias/csv', h(async (req, res) => {
   const m = await db.one('SELECT * FROM materias WHERE id = ?', [materiaId]);
   if (!m) return res.status(404).json({ error: 'Materia no encontrada.' });
   const { alumnos, fechas, registros } = await reporte(materiaId, req.query.desde, req.query.hasta);
-  const esc = v => `"${String(v).replace(/"/g, '""')}"`;
+  const esc = v => { let s = String(v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return `"${s.replace(/"/g, '""')}"`; };
   const lines = [['Matrícula', 'Nombre', ...fechas, 'Total', 'Porcentaje'].map(esc).join(',')];
   for (const a of alumnos) {
     const row = fechas.map(f => { const r = registros.find(x => x.alumno_id === a.id && x.fecha === f); return r ? r.hora : ''; });

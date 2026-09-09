@@ -42,8 +42,8 @@ APP_FAKE_NOW="2026-09-10T23:10:00Z" npm start   # jueves 17:10 hora de México
 
 | Variable | Descripción |
 | --- | --- |
-| `ADMIN_PASSWORD` | Contraseña del panel `/admin` (por defecto `admin`, cámbiala). |
-| `SESSION_SECRET` | Secreto para firmar la cookie de sesión del admin. |
+| `ADMIN_PASSWORD` | Contraseña del panel `/admin`, mínimo 8 caracteres. **Obligatoria en producción** (en local, por defecto `admin`). |
+| `SESSION_SECRET` | Secreto para firmar la cookie de sesión del admin (`openssl rand -hex 32`). **Obligatorio en producción**. |
 | `APP_TZ` | Zona horaria para validar horarios. Por defecto `America/Mexico_City`. |
 | `TURSO_DATABASE_URL` | URL `libsql://…` de Turso. Si falta en local se usa SQLite en archivo. |
 | `TURSO_AUTH_TOKEN` | Token de Turso. |
