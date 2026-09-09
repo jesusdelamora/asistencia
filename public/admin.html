@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administración · Asistencia</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="topbar"><div class="inner">
+  <h1 class="brand">Asistencia · Administración</h1>
+  <div class="row"><span class="small clock" id="ahora"></span><a href="/" class="small">Página de alumnos</a><button class="btn sm secondary hidden" id="logout">Salir</button></div>
+</div></div>
+
+<main class="container">
+  <section id="login" class="card narrow" style="margin:2rem auto">
+    <h2>Acceso del profesor</h2>
+    <form id="loginForm">
+      <div class="field"><label for="password">Contraseña</label><input id="password" type="password" required autofocus></div>
+      <button class="btn block" type="submit">Entrar</button>
+    </form>
+    <div id="loginMsg"></div>
+  </section>
+
+  <section id="panel" class="hidden">
+    <div class="stats" id="stats"></div>
+    <div class="tabs">
+      <button class="tab active" data-tab="asistencia">Asistencia</button>
+      <button class="tab" data-tab="materias">Materias y horarios</button>
+      <button class="tab" data-tab="alumnos">Alumnos</button>
+      <button class="tab" data-tab="ajustes">Ajustes</button>
+    </div>
+
+    <div id="tab-asistencia" class="tabpane">
+      <div class="card">
+        <div class="row between">
+          <div class="row">
+            <div><label>Materia</label><select id="asMateria"></select></div>
+            <div><label>Desde</label><input type="date" id="asDesde"></div>
+            <div><label>Hasta</label><input type="date" id="asHasta"></div>
+            <div><label>&nbsp;</label><button class="btn secondary" id="asBuscar">Actualizar</button></div>
+          </div>
+          <div class="row">
+            <div><label>Agregar fecha</label><input type="date" id="asNuevaFecha"></div>
+            <div><label>&nbsp;</label><a class="btn secondary" id="asCsv" href="#">Exportar CSV</a></div>
+          </div>
+        </div>
+        <p class="small muted" style="margin:.75rem 0 0">Haz clic en una celda para marcar o quitar asistencia manualmente. Verde = check-in del alumno; amarillo = marcada por el profesor.</p>
+      </div>
+      <div class="card" id="asTabla"></div>
+    </div>
+
+    <div id="tab-materias" class="tabpane hidden">
+      <div class="card">
+        <h3>Nueva materia</h3>
+        <form id="formMateria" class="inline-form">
+          <div><label>Nombre</label><input type="text" id="mNombre" placeholder="Ej. Bases de Datos" required></div>
+          <div><label>Grupo</label><input type="text" id="mGrupo" placeholder="Ej. 3A IPM"></div>
+          <div><label>Color</label><input type="color" id="mColor" value="#bfdbfe"></div>
+          <button class="btn" type="submit">Agregar</button>
+        </form>
+      </div>
+      <div id="listaMaterias"></div>
+    </div>
+
+    <div id="tab-alumnos" class="tabpane hidden">
+      <div class="grid2">
+        <div class="card">
+          <h3>Nuevo alumno</h3>
+          <form id="formAlumno">
+            <div class="grid2">
+              <div class="field"><label>Matrícula</label><input type="text" id="aMatricula" required></div>
+              <div class="field"><label>Nombre</label><input type="text" id="aNombre" placeholder="APELLIDOS, NOMBRE" required></div>
+            </div>
+            <div class="field"><label>Materias</label><div id="aMaterias" class="row"></div></div>
+            <button class="btn" type="submit">Agregar alumno</button>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Importar lista</h3>
+          <p class="small muted">Pega desde Excel una línea por alumno: <code>matrícula, nombre</code> (también acepta tabulador o punto y coma).</p>
+          <div class="field"><label>Inscribir en</label><select id="impMateria"><option value="">— Solo dar de alta, sin materia —</option></select></div>
+          <div class="field"><textarea id="impTexto" placeholder="12345	GARCIA LOPEZ, JUAN&#10;12346	PEREZ RUIZ, ANA"></textarea></div>
+          <button class="btn" id="impBtn">Importar</button>
+          <div id="impMsg"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row between" style="margin-bottom:.75rem">
+          <h3 style="margin:0">Lista de alumnos <span class="tag" id="alCount"></span></h3>
+          <div class="row"><select id="alFiltro"><option value="">Todas las materias</option></select><input type="text" id="alBuscar" placeholder="Buscar nombre o matrícula" style="width:240px"></div>
+        </div>
+        <div class="table-wrap"><table id="alTabla"></table></div>
+      </div>
+    </div>
+
+    <div id="tab-ajustes" class="tabpane hidden">
+      <div class="card narrow" style="margin:0">
+        <h3>Tolerancia de check-in</h3>
+        <p class="small muted">Por defecto el check-in solo se acepta entre la hora de inicio y fin de la clase. Aquí puedes ampliar la ventana.</p>
+        <form id="formAjustes">
+          <div class="field"><label>Minutos antes del inicio</label><input type="number" id="tolAntes" min="0" max="180"></div>
+          <div class="field"><label>Minutos después del fin</label><input type="number" id="tolDespues" min="0" max="180"></div>
+          <button class="btn" type="submit">Guardar</button>
+        </form>
+        <div id="ajMsg"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="/admin.js"></script>
+</body>
+</html>

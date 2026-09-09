@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check-in de asistencia</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="topbar"><div class="inner"><h1 class="brand">Asistencia</h1><a href="/admin" class="small">Profesor</a></div></div>
+<main class="container narrow">
+  <div class="hero">
+    <div class="time clock" id="reloj">--:--</div>
+    <div class="muted" id="fecha">Cargando hora del servidor…</div>
+  </div>
+  <div class="card">
+    <h2>Registra tu asistencia</h2>
+    <p class="muted small">Escribe tu matrícula. Solo puedes hacer check-in durante el horario de tu clase.</p>
+    <form id="form" autocomplete="off">
+      <div class="field">
+        <label for="matricula">Matrícula</label>
+        <input id="matricula" name="matricula" type="text" inputmode="numeric" pattern="[0-9A-Za-z\-]+" placeholder="Ej. 12345" required autofocus>
+      </div>
+      <button class="btn big block" id="btn" type="submit">Registrar asistencia</button>
+    </form>
+    <div id="resultado"></div>
+  </div>
+</main>
+<footer>Sistema de asistencia · Ing. José de Jesús De la Mora</footer>
+<script src="/checkin.js"></script>
+</body>
+</html>

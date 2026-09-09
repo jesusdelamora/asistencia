@@ -1,0 +1,382 @@
+{
+  "materias": [
+    {
+      "nombre": "Gestión de Proyectos de Software",
+      "grupo": "6A IPM",
+      "color": "#e9d5ff",
+      "horarios": [
+        {
+          "dia": 4,
+          "inicio": "17:00",
+          "fin": "18:40"
+        },
+        {
+          "dia": 5,
+          "inicio": "17:00",
+          "fin": "17:50"
+        }
+      ]
+    },
+    {
+      "nombre": "Calidad en el Software",
+      "grupo": "9A IPM",
+      "color": "#fde68a",
+      "horarios": [
+        {
+          "dia": 2,
+          "inicio": "18:40",
+          "fin": "20:20"
+        },
+        {
+          "dia": 5,
+          "inicio": "18:40",
+          "fin": "19:30"
+        }
+      ]
+    }
+  ],
+  "alumnos": [
+    {
+      "matricula": "7248",
+      "nombre": "BRIONES GONZALEZ, JOSE ROBERTO",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "12660",
+      "nombre": "CASILLAS HERNANDEZ, LUIS ALEJANDRO",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "13178",
+      "nombre": "CASTILLO SILVA, GABRIEL",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "7424",
+      "nombre": "CHAVARRIA GONZALEZ, EMILIO DE JESUS",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "13226",
+      "nombre": "DEL ANGEL RAMOS, ANDRES MIGUEL",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "5708",
+      "nombre": "GARCIA CRUZ, JOSE JUAN",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "5933",
+      "nombre": "GARZA CARRIZALES, ERICK OLIVER",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "13821",
+      "nombre": "GARZA CARRIZALES, KARIM SASHIEL",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "6966",
+      "nombre": "GUERRERO PEÑA, STEPHANY ALEJANDRA",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "13497",
+      "nombre": "HERRERA CRUZ, GABRIEL HUMBERTO",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "13762",
+      "nombre": "HERRERA MORALES, JAFETH NOE",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "12777",
+      "nombre": "LOPEZ GARCIA, ARELI MARICELA",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "13129",
+      "nombre": "MEJIA VALADEZ, STEPHANY MERLINA",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "5465",
+      "nombre": "MENDOZA ALEMAN, EFRAIN",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "13452",
+      "nombre": "MERCADO GUTIERREZ, ANGGEL TADEO",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "14161",
+      "nombre": "MORENO MARTINEZ, JUNIOR YAHIR",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "6993",
+      "nombre": "PLAZAS OYERVIDES, ANNA SOFIA",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "12030",
+      "nombre": "PRADO SANTANA, ABNER JOSEB",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "12601",
+      "nombre": "SEGOVIA JUAREZ, JUAN DAVID",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "4016",
+      "nombre": "TOBIAS CEDILLO, JOSE EDUARDO",
+      "materia": "Gestión de Proyectos de Software",
+      "grupo": "6 IPM"
+    },
+    {
+      "matricula": "11015",
+      "nombre": "BRIONES CHAVEZ, OMAR ALDAHIR",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "6338",
+      "nombre": "CANTU MARTINEZ, GAEL ALEJANDRO",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "5187",
+      "nombre": "CARRIZALES AREVALO, SEBASTIAN ALEJANDRO",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "1301",
+      "nombre": "CERDA SALAS, DANNA ANYELICA",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "11733",
+      "nombre": "CONTRERAS SOLIS, ORLANDO YAHIR",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "11833",
+      "nombre": "FALCON ORTIZ, BRYAN HELI",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "10615",
+      "nombre": "GARCIA SAUCEDO, ADILENNE JOSELIN",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "11403",
+      "nombre": "GOMEZ BETANCOURT, BRAYAN RICARDO",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "11979",
+      "nombre": "LUNA JAIME, SEBASTIAN",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "9958",
+      "nombre": "MEDINA BARBOZA, MAXIMILIANO",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "10563",
+      "nombre": "MUÑIZ MENDOZA, MARCO CESAR",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "5375",
+      "nombre": "RODRIGUEZ CONTRERAS, ANGELA GISSEL",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "11316",
+      "nombre": "ROMERO VALDEZ, MIGUEL ALEJANDRO",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "10446",
+      "nombre": "SANTIAGO CASTILLO, JAIME ULISES",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "10445",
+      "nombre": "SANTIAGO CASTILLO, MC. LOGAN",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "5602",
+      "nombre": "SUBIRIAS HERRERA, EMILIANO",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "5700",
+      "nombre": "VAZQUEZ CONTRERAS, OSCAR GAEL",
+      "materia": "Calidad en el Software",
+      "grupo": "9 IPM"
+    },
+    {
+      "matricula": "14735",
+      "nombre": "CARRANZA COSSIO, GUSTAVO GABRIEL",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14343",
+      "nombre": "CHARLES HERNANDEZ, ISAAC ALBERTO",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14990",
+      "nombre": "CORPUS MARTINEZ, DANIEL ALEJANDRO",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14466",
+      "nombre": "COVARRUBIAS MENDEZ, SERGIO ALAN",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14759",
+      "nombre": "DENG, ALEK ALEER",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "7593",
+      "nombre": "DURAN PADILLA, ERIK JOSUE",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "8166",
+      "nombre": "GAMEZ PEREZ, JUAN GERARDO",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "3536",
+      "nombre": "GONZALEZ ALVAREZ, GERARDO",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "15249",
+      "nombre": "GONZALEZ MOLINA, MARELLY STEPHANIA",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "8539",
+      "nombre": "LOPEZ CORTES, ANGEL SAIDIEL",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14333",
+      "nombre": "MARTINEZ ZUÑIGA, BRYAN ENRIQUE",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14760",
+      "nombre": "MAYEN, ADAU DENG",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "15611",
+      "nombre": "OLIVAS MARTINEZ, ARLETH",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14487",
+      "nombre": "RAMOS RANGEL, FRANCISCO GAEL",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14627",
+      "nombre": "RENTERIA CONTRERAS, ELIAS ENRIQUE",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "8131",
+      "nombre": "SARTILLO SANDOVAL, J SANTIAGO",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "9394",
+      "nombre": "SOSA GAMEZ, RODRIGO JARED",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "14821",
+      "nombre": "TREJO MARTINEZ, XIMENA SARAHI",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "5240",
+      "nombre": "VEGA RODRIGUEZ, DULCE MARIA",
+      "materia": null,
+      "grupo": "3 IPM"
+    },
+    {
+      "matricula": "7935",
+      "nombre": "VELAZQUEZ LOPEZ, JOEL ALONSO",
+      "materia": null,
+      "grupo": "3 IPM"
+    }
+  ]
+}
