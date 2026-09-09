@@ -4,11 +4,21 @@ const path = require('node:path');
 const fs = require('node:fs');
 const { createClient } = require('@libsql/client');
 
-// En Vercel/Turso: TURSO_DATABASE_URL + TURSO_AUTH_TOKEN. En local sin variables: archivo SQLite.
+// En Vercel la integración de Turso crea <PREFIJO>_URL (o _DATABASE_URL) y <PREFIJO>_AUTH_TOKEN.
+// Se detectan con cualquier prefijo. En local sin variables: archivo SQLite.
+function credencialesTurso() {
+  const env = process.env;
+  const nombreUrl = ['TURSO_DATABASE_URL', 'TURSO_URL', 'STORAGE_URL'].find(k => env[k])
+    || Object.keys(env).find(k => /_URL$/.test(k) && /^libsql:\/\//.test(env[k] || ''));
+  if (!nombreUrl) return null;
+  const prefijo = nombreUrl.replace(/_(DATABASE_)?URL$/, '');
+  const authToken = env[prefijo + '_AUTH_TOKEN'] || env[prefijo + '_TOKEN'] || env.TURSO_AUTH_TOKEN;
+  return { url: env[nombreUrl], authToken };
+}
 function buildClient() {
-  const url = process.env.TURSO_DATABASE_URL;
-  if (url) return createClient({ url, authToken: process.env.TURSO_AUTH_TOKEN });
-  if (process.env.VERCEL) throw new Error('Falta TURSO_DATABASE_URL. Conecta la integración de Turso en Vercel.');
+  const turso = credencialesTurso();
+  if (turso) return createClient(turso);
+  if (process.env.VERCEL) throw new Error('No se encontró la URL de Turso. Conecta la integración de Turso al proyecto en Vercel (Storage).');
   const file = path.join(__dirname, 'data', 'asistencia.db');
   fs.mkdirSync(path.dirname(file), { recursive: true });
   return createClient({ url: `file:${file}` });
